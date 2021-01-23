@@ -17,7 +17,7 @@ Webcam.attach('#camera');
 
 function Take_snapshot(){
  Webcam.snap(function(data_uri){
-document.getElementById("result").innerHTML="<img id='result' src='"+ data_uri+"'>";
+document.getElementById("result").innerHTML="<img id='capturedimg' src='"+ data_uri+"'>";
  });
 }
 
@@ -28,3 +28,16 @@ function modelLoaded(){
     console.log("modalLoaded");
 }
 
+
+function check(){
+    img=document.getElementById("capturedimg");
+    classifier.classify(img,gotResult);
+    console.log("check");
+
+}
+function gotResult(error, results) 
+{ if (error) { console.error(error); }
+ else { console.log(results); document.getElementById("result_object_name").innerHTML = results[0].label;
+  document.getElementById("result_object_accuracy").innerHTML = results[0].confidence.toFixed(3); } 
+
+}
